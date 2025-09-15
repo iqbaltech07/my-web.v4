@@ -4,13 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { projectsData } from "~/lib/data";
 import { Button } from "~/components/ui/button";
+import { Typography } from "~/components/ui/typography";
 
 export function ProjectsSection() {
     return (
         <section>
             <div className="flex items-center justify-between mb-8">
-                <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Featured Projects</h2>
-                <Link href={"/projects"} className="text-md text-nowrap">See All</Link>
+                <Typography variant="h2" className="text-2xl border-none sm:text-3xl font-bold tracking-tight">Featured Projects</Typography>
+                <Link href={"/projects"} className="text-md text-nowrap underline underline-offset-2">See All</Link>
             </div>
             <div className="grid grid-cols-1 gap-8">
                 {projectsData.map((project: any) => (

@@ -1,5 +1,6 @@
 import { FaReact, FaNodeJs, FaGitAlt } from "react-icons/fa";
 import { SiNextdotjs, SiTailwindcss, SiPrisma, SiTypescript, SiJavascript, SiMysql } from "react-icons/si";
+import { Typography } from "~/components/ui/typography";
 import { skillsData } from "~/lib/data";
 
 const iconMap: { [key: string]: React.ElementType } = {
@@ -17,9 +18,9 @@ const iconMap: { [key: string]: React.ElementType } = {
 export function ToolsSection() {
     return (
         <section className="mb-24">
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-left mb-8">
+            <Typography variant="h2" className="text-2xl border-none sm:text-3xl font-bold tracking-tight text-left mb-8">
                 Tools & Technology
-            </h2>
+            </Typography>
             <div className="flex flex-wrap gap-4 sm:gap-6 justify-start">
                 {skillsData.map((skill: any) => {
                     const IconComponent = iconMap[skill.name];

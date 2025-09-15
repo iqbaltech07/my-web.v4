@@ -29,7 +29,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased ",
+          "min-h-screen bg-background font-sans antialiased",
           onest.variable
         )}
       >
@@ -47,7 +47,7 @@ export default function RootLayout({
               <MobileHeader />
               <div className="flex-1 md:ml-62">
                 <main className="px-4 py-6 md:px-6 lg:px-8">
-                  <div className="mx-auto max-w-3xl p-5 sm:p-12">
+                  <div className="mx-auto max-w-4xl p-5 sm:p-12">
                     {children}
                   </div>
                 </main>

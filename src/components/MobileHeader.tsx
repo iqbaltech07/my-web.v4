@@ -42,7 +42,9 @@ export function MobileHeader() {
                                         <div className="flex flex-col">
                                             <h1 className="font-semibold leading-tight text-md sm:text-2xl flex items-center gap-1">
                                                 {profileData.name}
-                                                <VerifyIcon />
+                                                <div className="ml-1">
+                                                    <VerifyIcon width={15} />
+                                                </div>
                                             </h1>
                                             <p className="text-sm font-normal text-zinc-400">@{profileData.username}</p>
                                         </div>
@@ -56,7 +58,7 @@ export function MobileHeader() {
                             </div>
                         </DrawerTitle>
 
-                        <SidebarContent />
+                        <SidebarContent isInsideDrawer={true} />
                     </DrawerContent>
                 </Drawer>
             </div>

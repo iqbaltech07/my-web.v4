@@ -1,40 +1,61 @@
-import React from 'react'
-import { CertificationTabContent } from "~/components/pages/about/CertificationTabContent";
-import { EducationTabContent } from '~/components/pages/about/EducationTabContent';
-import { ExperienceTabContent } from '~/components/pages/about/ExperienceTabContent';
-import { IntroTabContent } from "~/components/pages/about/IntroTabContent";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
+import React from "react"
+import { CertificationTabContent } from "~/components/pages/about/CertificationTabContent"
+import { EducationTabContent } from "~/components/pages/about/EducationTabContent"
+import { ExperienceTabContent } from "~/components/pages/about/ExperienceTabContent"
+import { IntroTabContent } from "~/components/pages/about/IntroTabContent"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
+import { Typography } from "~/components/ui/typography"
 
+const tabItems = [
+    {
+        value: "intro",
+        label: "Intro",
+        content: <IntroTabContent />,
+    },
+    {
+        value: "experience",
+        label: "Experience",
+        content: <ExperienceTabContent />,
+    },
+    {
+        value: "education",
+        label: "Education",
+        content: <EducationTabContent />,
+    },
+    {
+        value: "certification",
+        label: "Certification",
+        content: <CertificationTabContent />,
+    },
+]
 
 const About = () => {
     return (
         <>
             <section className="mb-12">
-                <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
-                    Tentang Saya
-                </h1>
+                <Typography variant="h1" className="font-bold tracking-tight">
+                    About Me
+                </Typography>
+                <Typography variant="p" className="text-md lg:text-lg">
+                    Fueled by belief, woven in code. This is the course I pursue, and the
+                    trail I continue to build.
+                </Typography>
             </section>
 
             <Tabs defaultValue="intro" className="w-full">
-                <TabsList className="grid w-full grid-cols-4 mb-8">
-                    <TabsTrigger value="intro">Intro</TabsTrigger>
-                    <TabsTrigger value="experience">Pengalaman</TabsTrigger>
-                    <TabsTrigger value="education">Pendidikan</TabsTrigger>
-                    <TabsTrigger value="certification">Sertifikasi</TabsTrigger>
+                <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 h-auto">
+                    {tabItems.map((tab) => (
+                        <TabsTrigger key={tab.value} value={tab.value} className="cursor-pointer">
+                            {tab.label}
+                        </TabsTrigger>
+                    ))}
                 </TabsList>
 
-                <TabsContent value="intro">
-                    <IntroTabContent />
-                </TabsContent>
-                <TabsContent value="experience">
-                    <ExperienceTabContent />
-                </TabsContent>
-                <TabsContent value="education">
-                    <EducationTabContent />
-                </TabsContent>
-                <TabsContent value="certification">
-                    <CertificationTabContent />
-                </TabsContent>
+                {tabItems.map((tab) => (
+                    <TabsContent key={tab.value} value={tab.value}>
+                        {tab.content}
+                    </TabsContent>
+                ))}
             </Tabs>
         </>
     )
