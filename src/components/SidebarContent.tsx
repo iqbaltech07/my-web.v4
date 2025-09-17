@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "~/lib/utils";
-import { Github, Linkedin, Mail, Home, User } from "lucide-react";
+import { Github, Linkedin, Mail, Home, User, Briefcase, MessageSquare } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
@@ -18,6 +18,10 @@ export function SidebarContent({ isInsideDrawer = false }: { isInsideDrawer?: bo
     const navLinks = [
         { href: "/", label: "Home", icon: Home },
         { href: "/about", label: "About", icon: User },
+        { href: "/projects", label: "Projects", icon: Briefcase },
+        { href: "/contact", label: "Contact", icon: Mail },
+        // guesbook
+        { href: "/guestbook", label: "Guestbook", icon: MessageSquare },
     ];
 
     const LinkWrapper = isInsideDrawer ? DrawerClose : React.Fragment;

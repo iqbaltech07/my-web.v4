@@ -10,8 +10,8 @@ export const profileData = {
     "My name is <b>Muhammad Iqbal Ferdiansyah</b>, and I am a <b>student in Informatics Management</b> with a foundation in <b>Software Engineering</b> and more than a year of experience as a <b>Web Developer</b> gained through internships at Nusantech and the Nusa Development Program. I have developed web applications with <b>React.js, Next.js, and Tailwind CSS</b>, and I possess backend knowledge in <b>Express.js, MySQL, and PostgreSQL</b>. I also enjoy collaborating in teams using <b>Git</b> and contributing to technical documentation.\n\nI enjoy transforming ideas into digital products, from designing in Figma to coding and optimizing for performance. Going forward, I aim to keep growing as a web developer and contribute to impactful projects that deliver real value.",
   contact: {
     email: "miqbalferdiansyah.s@gmail.com",
-    github: "https://github.com/iqbalfrydv",
-    linkedin: "https://linkedin.com/in/iqbalfrydv",
+    github: "https://github.com/iqbaltech07",
+    linkedin: "https://www.linkedin.com/in/muhammdiqbalfs/",
   },
 };
 
@@ -32,7 +32,9 @@ export const projectsData = [
     slug: "nusantech-internship",
     title: "Nusantech Internship Projects",
     description:
-      "During my one-year internship at Nusantech, I built and maintained user interfaces with React.js and Next.js, focusing on reusable components, SPA navigation, and UI/UX optimization.",
+      "Built and maintained user interfaces with React.js and Next.js, focusing on reusable components.",
+    longDescription:
+      "During my one-year internship at Nusantech, I was fully responsible for front-end development. My main tasks included building modular and reusable UI components using React.js and Next.js. Additionally, I managed dynamic pages and routing systems to support Single Page Application (SPA) navigation, and was actively involved in debugging and optimizing the UI/UX to improve performance and user interaction. Team collaboration was conducted via Git, and I also contributed to technical documentation.",
     features: [
       "Built reusable UI components with React.js and Next.js",
       "Managed dynamic pages and routing with Next.js",
@@ -40,24 +42,85 @@ export const projectsData = [
       "Collaborated using Git and contributed to technical documentation",
     ],
     techStack: ["React.js", "Next.js", "Tailwind CSS", "Git"],
-    imageUrl: "/images/placeholder-project-1.png",
+    imageUrl: "/images/portofolio/cepatpintar.png",
     liveUrl: "#",
     githubUrl: "#",
+    featured: true,
+  },
+  {
+    slug: "personal-portfolio-v4",
+    title: "Personal Portfolio v4",
+    description:
+      "The fourth version of my personal portfolio website that you are currently viewing. Built with a modern tech stack.",
+    longDescription:
+      "This is the fourth iteration of my personal portfolio website, designed to professionally showcase my projects, skills, and experience. This project was built from scratch using Next.js (App Router), TypeScript for type safety, and Tailwind CSS for styling. The main focus was to create a clean, responsive, and modern design with a seamless user experience, including smooth animations implemented with Framer Motion and support for both light and dark themes.",
+    features: [
+      "Responsive design for all devices",
+      "Light & Dark Mode support",
+      "Smooth animations using Framer Motion",
+      "SEO-friendly page structure",
+    ],
+    techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    imageUrl: "/images/portofolio/cepatpintar.png",
+    liveUrl: "#",
+    githubUrl: "https://github.com/iqbalfrydv/my-web.v4",
+    featured: true,
   },
   {
     slug: "nusa-development-program",
     title: "Nusa Development Program",
     description:
-      "As part of the Nusa Development Program internship, I contributed to maintaining core web services and ensuring smooth website functionality, while assisting in debugging and resolving technical issues.",
+      "Contributed to maintaining core web services and ensuring the website's functionality.",
+    longDescription:
+      "As part of my internship at the Nusa Development Program, I was involved in the web development team tasked with maintaining core services. My responsibilities included assisting in the debugging process to identify and fix technical issues on the web application, as well as collaborating closely with other developers to ensure smooth integration of front-end components according to the design.",
     features: [
       "Maintained core web services for functionality",
       "Assisted in debugging and troubleshooting",
-      "Collaborated with developers for smooth integration",
+      "Collaborated with developers for smooth front-end integration",
     ],
     techStack: ["React.js", "Next.js", "Tailwind CSS"],
-    imageUrl: "/images/placeholder-project-2.png",
+    imageUrl: "/images/portofolio/cepatpintar.png",
     liveUrl: "#",
     githubUrl: "#",
+    featured: false,
+  },
+  {
+    slug: "course-marketplace-app",
+    title: "Course Marketplace App",
+    description:
+      "An online course marketplace platform where users can register as instructors or students.",
+    longDescription:
+      "This project is a full-stack web application that functions as an online course marketplace. Users can register in two roles: as instructors to create, manage, and sell courses, or as students to purchase and access course materials. The application features an authentication system, a course management dashboard (CRUD), and a simulated payment process. The backend architecture is built using Next.js API Routes with Prisma as the ORM for interacting with a MySQL database.",
+    features: [
+      "Authentication system for students and instructors",
+      "Dashboard for course management (CRUD)",
+      "Checkout and payment process (simulation)",
+      "Course search and filter functionality",
+    ],
+    techStack: ["Next.js", "Prisma", "MySQL", "NextAuth.js"],
+    imageUrl: "/images/portofolio/cepatpintar.png",
+    liveUrl: "#",
+    githubUrl: "#",
+    featured: false,
+  },
+  {
+    slug: "course-marketplace-apps",
+    title: "Course Marketplace App",
+    description:
+      "An online course marketplace platform where users can register as instructors or students.",
+    longDescription:
+      "This project is a full-stack web application that functions as an online course marketplace. Users can register in two roles: as instructors to create, manage, and sell courses, or as students to purchase and access course materials. The application features an authentication system, a course management dashboard (CRUD), and a simulated payment process. The backend architecture is built using Next.js API Routes with Prisma as the ORM for interacting with a MySQL database.",
+    features: [
+      "Authentication system for students and instructors",
+      "Dashboard for course management (CRUD)",
+      "Checkout and payment process (simulation)",
+      "Course search and filter functionality",
+    ],
+    techStack: ["Next.js", "Prisma", "MySQL", "NextAuth.js"],
+    imageUrl: "/images/portofolio/cepatpintar.png",
+    liveUrl: "#",
+    githubUrl: "#",
+    featured: false,
   },
 ];
 
