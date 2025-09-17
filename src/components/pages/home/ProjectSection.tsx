@@ -15,8 +15,8 @@ export function ProjectsSection() {
             </div>
             <div className="grid grid-cols-1 gap-8">
                 {projectsData.map((project: any) => (
-                    <Card key={project.slug} className="flex flex-col md:flex-row overflow-hidden transition-shadow hover:shadow-lg">
-                        <div className="relative w-full md:w-1/3 h-48 md:h-auto">
+                    <Card key={project.slug} className="flex flex-col md:flex-row overflow-hidden transition-shadow hover:shadow-lg py-0">
+                        <div className="relative w-full md:w-1/2 h-48 md:h-auto">
                             <Image
                                 src={project.imageUrl}
                                 alt={project.title}

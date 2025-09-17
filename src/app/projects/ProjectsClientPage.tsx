@@ -1,4 +1,3 @@
-// src/app/projects/ProjectsClientPage.tsx
 "use client";
 
 import React, { useState, useMemo } from 'react';
@@ -11,28 +10,7 @@ import { Pagination, PaginationContent, PaginationItem, PaginationLink, Paginati
 import { Badge } from '~/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip';
 import { projectsData } from '~/lib/data';
-
-import {
-    SiNextdotjs,
-    SiReact,
-    SiTailwindcss,
-    SiTypescript,
-    SiPrisma,
-    SiMysql,
-    SiGit,
-} from "react-icons/si";
-import { TbBrandFramerMotion } from "react-icons/tb";
-
-const iconMap: { [key: string]: React.ElementType } = {
-    "Next.js": SiNextdotjs,
-    "React.js": SiReact,
-    "Tailwind CSS": SiTailwindcss,
-    "TypeScript": SiTypescript,
-    "Prisma": SiPrisma,
-    "MySQL": SiMysql,
-    "Git": SiGit,
-    "Framer Motion": TbBrandFramerMotion
-};
+import { TechIcon } from '~/components/TechIcons';
 
 type Project = typeof projectsData[0];
 const PROJECTS_PER_PAGE = 4;
@@ -80,7 +58,7 @@ export function ProjectsClientPage({ projects }: { projects: Project[] }) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {currentProjects.map((project) => (
                     <Link href={`/projects/${project.slug}`} key={project.slug} className="group block">
-                        <Card className="h-full flex flex-col bg-card/60 dark:bg-input/30 backdrop-blur-sm border-border/20 overflow-hidden transition-all duration-300 ease-in-out hover:border-zinc-600 dark:hover:border-zinc-600">
+                        <Card className="h-full flex flex-col bg-card/60 dark:bg-input/30 backdrop-blur-sm border-border/20 overflow-hidden transition-all duration-300 ease-in-out hover:border-zinc-600 dark:hover:border-zinc-600 py-0 pb-6">
                             <div className="relative overflow-hidden">
                                 <div className="relative w-full h-48">
                                     <Image
@@ -98,21 +76,18 @@ export function ProjectsClientPage({ projects }: { projects: Project[] }) {
                                     </Badge>
                                 )}
                                 <div className="absolute bottom-4 left-4 flex items-center gap-3">
-                                    {project.techStack.slice(0, 5).map(tech => {
-                                        const Icon = iconMap[tech];
-                                        return Icon ? (
-                                            <Tooltip key={tech}>
-                                                <TooltipTrigger>
-                                                    <div className="h-8 w-8 flex items-center justify-center rounded-full bg-background/70 p-1.5 backdrop-blur-sm">
-                                                        <Icon className="h-full w-full text-foreground" />
-                                                    </div>
-                                                </TooltipTrigger>
-                                                <TooltipContent>
-                                                    <p>{tech}</p>
-                                                </TooltipContent>
-                                            </Tooltip>
-                                        ) : null
-                                    })}
+                                    {project.techStack.slice(0, 5).map(tech => (
+                                        <Tooltip key={tech}>
+                                            <TooltipTrigger>
+                                                <div className="h-8 w-8 flex items-center justify-center rounded-full bg-background/70 p-1.5 backdrop-blur-sm">
+                                                    <TechIcon name={tech} className="h-full w-full text-foreground" />
+                                                </div>
+                                            </TooltipTrigger>
+                                            <TooltipContent>
+                                                <p>{tech}</p>
+                                            </TooltipContent>
+                                        </Tooltip>
+                                    ))}
                                 </div>
                             </div>
                             <CardHeader className="flex-grow p-6">

@@ -1,10 +1,20 @@
 import React from "react"
+import type { Metadata } from 'next';
 import { CertificationTabContent } from "~/components/pages/about/CertificationTabContent"
 import { EducationTabContent } from "~/components/pages/about/EducationTabContent"
 import { ExperienceTabContent } from "~/components/pages/about/ExperienceTabContent"
 import { IntroTabContent } from "~/components/pages/about/IntroTabContent"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
 import { Typography } from "~/components/ui/typography"
+
+export const metadata: Metadata = {
+    title: 'About Me | M Iqbal Ferdiansyah',
+    description: 'Learn more about M Iqbal Ferdiansyah, my skills, experience, and education background.',
+    openGraph: {
+        title: 'About Me | M Iqbal Ferdiansyah',
+        description: 'My background in software engineering and web development.',
+    },
+};
 
 const tabItems = [
     {
