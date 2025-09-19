@@ -24,7 +24,7 @@ export function ExperienceTabContent() {
                         </div>
                     </div>
 
-                    <Accordion type="single" collapsible defaultValue={`item-${index}`} className="w-full">
+                    <Accordion type="single" collapsible className="w-full">
                         <AccordionItem value={`item-${index}`} className="border-b-0">
                             <AccordionTrigger className="hover:no-underline">
                                 <div className="flex flex-col items-start text-left">

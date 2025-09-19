@@ -1,6 +1,6 @@
 import { Button } from "~/components/ui/button";
 import { Card, CardHeader, CardTitle, CardFooter } from "~/components/ui/card";
-import { certificationData } from "~/lib/data";
+import { certificationData, profileData } from "~/lib/data";
 import { ExternalLink } from "lucide-react";
 import { FaLinkedin } from "react-icons/fa";
 
@@ -18,7 +18,7 @@ export function CertificationTabContent() {
                     </div>
                 </div>
                 <Button variant="outline" asChild className="w-full sm:w-auto">
-                    <a href="https://www.linkedin.com/in/muhammdiqbalfs/details/certifications/" target="_blank" rel="noopener noreferrer">
+                    <a href={`${profileData.contact.linkedin}/details/certifications/`} target="_blank" rel="noopener noreferrer">
                         <ExternalLink className="h-4 w-4" />
                         View on LinkedIn
                     </a>

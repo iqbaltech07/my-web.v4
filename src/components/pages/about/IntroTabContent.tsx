@@ -18,13 +18,17 @@ export function IntroTabContent() {
                                 </p>
                             </div>
                         </div>
-                        <div className="flex w-full gap-3 sm:w-auto mb-2 sm:mb-0 *:cursor-pointer">
-                            <Button variant="outline" className="w-[110px]">
-                                <FileDown className="mr-2 h-4 w-4" /> PDF
-                            </Button>
-                            <Button variant="outline" className="w-[110px]">
-                                <FileText className="mr-2 h-4 w-4" /> Latest
-                            </Button>
+                        <div className="flex w-full gap-3 sm:w-auto mb-2 sm:mb-0 ">
+                            <Link href={profileData.cv.old} download >
+                                <Button variant="outline" className="w-[110px] cursor-pointer" >
+                                    <FileDown className="mr-2 h-4 w-4" /> PDF
+                                </Button>
+                            </Link>
+                            <Link href={profileData.cv.latest} download >
+                                <Button variant="outline" className="w-[110px] cursor-pointer">
+                                    <FileText className="mr-2 h-4 w-4" /> Latest
+                                </Button>
+                            </Link>
                         </div>
                     </div>
                     <div className="flex items-center">

@@ -11,8 +11,12 @@ export const profileData = {
   contact: {
     email: "miqbalferdiansyah.s@gmail.com",
     github: "https://github.com/iqbaltech07",
-    linkedin: "https://www.linkedin.com/in/muhammdiqbalfs/",
+    linkedin: "https://www.linkedin.com/in/muhammdiqbalfs",
     instagram: "https://instagram.com/iqbalfry.dv",
+  },
+  cv: {
+    latest: "http://codewithiqbal.my.id/download/latestcv.pdf",
+    old: "http://codewithiqbal.my.id/download/oldcv.pdf",
   },
 };
 
