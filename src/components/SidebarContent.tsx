@@ -39,15 +39,15 @@ export function SidebarContent({ isInsideDrawer = false, profileData }: SidebarC
                     <Avatar className="h-10 w-10 sm:h-16 sm:w-16">
                         <AvatarImage
                             src={profileData.avatarUrl}
-                            alt={profileData.name || "Avatar"}
+                            alt={profileData.name?.split(" ").slice(0, 2).join(" ") || "Avatar"}
                         />
                         <AvatarFallback>
-                            {profileData.name ? profileData.name.charAt(0) : "U"}
+                            {profileData.name?.split(" ").slice(0, 2).join(" ") ? profileData.name.charAt(0) : "U"}
                         </AvatarFallback>
                     </Avatar>
                     <div className="flex flex-col">
                         <h1 className="font-semibold leading-tight text-md sm:text-2xl flex items-center gap-1">
-                            {profileData.name}
+                            {profileData.name?.split(" ").slice(0, 2).join(" ")}
                             <div className="mt-1 ml-1">
                                 <VerifyIcon />
                             </div>
@@ -108,7 +108,7 @@ export function SidebarContent({ isInsideDrawer = false, profileData }: SidebarC
                 )}
             </div>
 
-            <p className="text-[12px] text-zinc-400 text-center mt-5">&copy; {new Date().getFullYear()} {profileData.name} • Privacy</p>
+            <p className="text-[12px] text-zinc-400 text-center mt-5">&copy; {new Date().getFullYear()} {profileData.name?.split(" ").slice(0, 2).join(" ")} • Privacy</p>
         </>
     );
 }

@@ -1,19 +1,19 @@
 import "server-only";
 import { prisma } from "./prisma";
 import { unstable_noStore as noStore } from "next/cache";
-import { Project, Technology } from "~/generated/prisma";
+import { Project, Profile, Technology } from "~/generated/prisma";
 
 export type ProjectWithTechnologies = Project & {
   technologies: Technology[];
 };
 
-export async function getProfileData() {
+export async function getProfileData(): Promise<Partial<Profile>> {
   noStore();
   try {
-    const profile = await prisma.profile.findMany();
-    if (!profile) {
-      throw new Error("Profile data not found.");
-    }
+    const profile = await prisma.profile.findFirst({
+      cacheStrategy: { ttl: 60, swr: 30 },
+    });
+    if (!profile) throw new Error("Profile data not found.");
     return profile;
   } catch (error) {
     console.error("Database Error: Failed to fetch profile data.", error);
@@ -23,16 +23,12 @@ export async function getProfileData() {
       bio: "Bio tidak tersedia.",
       avatarUrl: "",
       description: "",
-      contact: {
-        email: "",
-        github: "",
-        linkedin: "",
-        instagram: "",
-      },
-      cv: {
-        latest: "",
-        old: "",
-      },
+      email: "",
+      github: "",
+      linkedin: "",
+      instagram: "",
+      cvLatestUrl: "",
+      cvOldUrl: "",
     };
   }
 }
@@ -40,11 +36,10 @@ export async function getProfileData() {
 export async function getActiveTechnologies() {
   noStore();
   try {
-    const technologies = await prisma.technology.findMany({
+    return await prisma.technology.findMany({
       where: { isActive: true },
       orderBy: { name: "asc" },
     });
-    return technologies;
   } catch (error) {
     console.error("Database Error: Failed to fetch technologies.", error);
     return [];
@@ -60,7 +55,8 @@ export async function getAllProjects(): Promise<ProjectWithTechnologies[]> {
       },
       orderBy: [{ featured: "desc" }, { title: "asc" }],
     });
-    return projects;
+
+    return projects as ProjectWithTechnologies[];
   } catch (error) {
     console.error("Database Error: Failed to fetch all projects.", error);
     return [];
@@ -78,7 +74,7 @@ export async function getFeaturedProjects(): Promise<
         technologies: true,
       },
     });
-    return projects;
+    return projects as ProjectWithTechnologies[];
   } catch (error) {
     console.error("Database Error: Failed to fetch featured projects.", error);
     return [];
@@ -96,7 +92,7 @@ export async function getProjectBySlug(
         technologies: true,
       },
     });
-    return project;
+    return project as ProjectWithTechnologies | null;
   } catch (error) {
     console.error(
       `Database Error: Failed to fetch project with slug "${slug}".`,
@@ -109,12 +105,7 @@ export async function getProjectBySlug(
 export async function getExperiences() {
   noStore();
   try {
-    const experiences = await prisma.experience.findMany({
-      orderBy: {
-        startDate: "desc",
-      },
-    });
-    return experiences;
+    return await prisma.experience.findMany({ orderBy: { startDate: "desc" } });
   } catch (error) {
     console.error("Database Error: Failed to fetch experiences.", error);
     return [];
@@ -124,12 +115,7 @@ export async function getExperiences() {
 export async function getEducations() {
   noStore();
   try {
-    const educations = await prisma.education.findMany({
-      orderBy: {
-        startDate: "desc",
-      },
-    });
-    return educations;
+    return await prisma.education.findMany({ orderBy: { startDate: "desc" } });
   } catch (error) {
     console.error("Database Error: Failed to fetch educations.", error);
     return [];
@@ -139,12 +125,9 @@ export async function getEducations() {
 export async function getCertifications() {
   noStore();
   try {
-    const certifications = await prisma.certification.findMany({
-      orderBy: {
-        issueDate: "desc",
-      },
+    return await prisma.certification.findMany({
+      orderBy: { issueDate: "desc" },
     });
-    return certifications;
   } catch (error) {
     console.error("Database Error: Failed to fetch certifications.", error);
     return [];

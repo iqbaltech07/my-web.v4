@@ -11,22 +11,16 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { getProfileData } from "~/lib/data";
 import { VerifyIcon } from "../../public/images/icons/verifyIcon";
-
-interface MobileHeaderData {
-    profileData: Partial<Profile>;
-}
+import { Profile } from "~/generated/prisma";
 
 export async function MobileHeader() {
-    const profileData = await getProfileData();
-
-    console.log(profileData);
-
+    const profileData: Partial<Profile> = await getProfileData();
 
     return (
         <header className="sticky top-0 z-50 w-screen border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 lg:hidden">
             <div className="container h-16 flex items-center justify-between w-full px-5">
                 <Link href="/" className="font-bold text-xl">
-                    {profileData.name}
+                    {profileData.name?.split(" ").slice(0, 2).join(" ")}
                 </Link>
                 <Drawer direction="right">
                     <DrawerTrigger asChild>
@@ -42,20 +36,20 @@ export async function MobileHeader() {
                                         <Avatar className="h-10 w-10 sm:h-16 sm:w-16">
                                             <AvatarImage
                                                 src={profileData.avatarUrl || ""}
-                                                alt={profileData.name || "Avatar"}
+                                                alt={profileData.name?.split(" ").slice(0, 2).join(" ") || "Avatar"}
                                             />
                                             <AvatarFallback>
-                                                {profileData.name ? profileData.name.charAt(0) : "U"}
+                                                {profileData.name?.split(" ").slice(0, 2).join(" ") ? profileData.name.charAt(0) : "U"}
                                             </AvatarFallback>
                                         </Avatar>
                                         <div className="flex flex-col">
                                             <h1 className="font-semibold leading-tight text-md sm:text-2xl flex items-center gap-1">
-                                                {profileData.name}
+                                                {profileData.name?.split(" ").slice(0, 2).join(" ")}
                                                 <div className="ml-1">
                                                     <VerifyIcon width={15} />
                                                 </div>
                                             </h1>
-                                            <p className="text-sm font-normal text-zinc-400">@{profileData.name}</p>
+                                            <p className="text-sm font-normal text-zinc-400">@{profileData.username}</p>
                                         </div>
                                     </div>
                                     <DrawerClose asChild>

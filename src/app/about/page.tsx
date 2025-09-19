@@ -17,7 +17,6 @@ export const metadata: Metadata = {
     },
 };
 
-
 const About = async () => {
     const [profileData, experiences, educations, certifications] = await Promise.all([
         getProfileData(),

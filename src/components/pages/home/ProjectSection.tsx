@@ -1,10 +1,11 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "~/components/ui/card";
-import { ArrowRight, Badge } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
 import { Typography } from "~/components/ui/typography";
 import { Project, Technology } from "~/generated/prisma";
+import { Badge } from "~/components/ui/badge";
 
 interface ProjectSectionProps {
     projectsData: (Project & { technologies: Technology[] })[];
@@ -18,7 +19,7 @@ export function ProjectsSection({ projectsData }: ProjectSectionProps) {
                 <Link href={"/projects"} className="text-md text-nowrap underline underline-offset-2">See All</Link>
             </div>
             <div className="grid grid-cols-1 gap-8">
-                {projectsData.map((project: any) => (
+                {projectsData.map((project) => (
                     <Card key={project.slug} className="flex flex-col md:flex-row overflow-hidden transition-shadow hover:shadow-lg py-0">
                         <div className="relative w-full md:w-1/2 h-48 md:h-auto">
                             <Image
@@ -36,8 +37,8 @@ export function ProjectsSection({ projectsData }: ProjectSectionProps) {
                                 </CardHeader>
                                 <CardContent className="p-0 mb-4">
                                     <div className="flex flex-wrap gap-2">
-                                        {project.techStack.map((tech: any) => (
-                                            <Badge key={tech}>{tech}</Badge>
+                                        {project.technologies.map((tech) => (
+                                            <Badge key={tech.id}>{tech.name}</Badge>
                                         ))}
                                     </div>
                                 </CardContent>
