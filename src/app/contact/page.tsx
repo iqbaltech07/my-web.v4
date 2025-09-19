@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import ContactPageContent from '~/components/pages/contact/ContactPageContent';
+import { getProfileData } from '~/lib/data';
 
 export const metadata: Metadata = {
     title: 'Contact Me | M Iqbal Ferdiansyah',
@@ -10,6 +11,8 @@ export const metadata: Metadata = {
     },
 };
 
-export default function ContactPage() {
-    return <ContactPageContent />;
+export default async function ContactPage() {
+    const profileData = await getProfileData();
+
+    return <ContactPageContent profileData={profileData} />;
 }

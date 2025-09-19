@@ -1,4 +1,4 @@
-"use client"; // Tetap client component karena ada state
+"use client";
 
 import React from 'react';
 import { Typography } from "~/components/ui/typography";
@@ -6,11 +6,15 @@ import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Textarea } from "~/components/ui/textarea";
 import { Label } from "~/components/ui/label";
-import { profileData } from "~/lib/data";
 import { Mail, Linkedin, Github, Link as LinkIcon, MessageSquare, Clock, Instagram } from "lucide-react";
 import Link from 'next/link';
+import { Profile } from '~/generated/prisma';
 
-export default function ContactPageContent() {
+interface ContactPageContentProps {
+    profileData: Partial<Profile>;
+}
+
+export default function ContactPageContent({ profileData }: ContactPageContentProps) {
     return (
         <div className="max-w-3xl mx-auto">
             <section className="mb-12 text-left">
@@ -31,26 +35,34 @@ export default function ContactPageContent() {
                     Here's where ideas become conversations—feel free to reach out.
                 </Typography>
                 <div className="flex flex-wrap gap-4">
-                    <Button asChild className="bg-[#25D366] hover:bg-[#1DAA51] text-white font-bold text-base px-5 py-6">
-                        <Link href={`mailto:${profileData.contact.email}`}>
-                            <Mail className="mr-2 h-5 w-5" /> Email
-                        </Link>
-                    </Button>
-                    <Button asChild className="bg-[#333] hover:bg-[#111] text-white font-bold text-base px-5 py-6">
-                        <Link href={profileData.contact.github} target="_blank" rel="noopener noreferrer">
-                            <Github className="mr-2 h-5 w-5" /> GitHub
-                        </Link>
-                    </Button>
-                    <Button asChild className="bg-[#0A66C2] hover:bg-[#0854a0] text-white font-bold text-base px-5 py-6">
-                        <Link href={profileData.contact.linkedin} target="_blank" rel="noopener noreferrer">
-                            <Linkedin className="mr-2 h-5 w-5" /> LinkedIn
-                        </Link>
-                    </Button>
-                    <Button asChild className="bg-[#333] hover:bg-[#111] text-white font-bold text-base px-5 py-6">
-                        <Link href={profileData.contact.linkedin} target="_blank" rel="noopener noreferrer">
-                            <Instagram className="mr-2 h-5 w-5" /> Instagram
-                        </Link>
-                    </Button>
+                    {profileData.email && (
+                        <Button asChild className="bg-[#25D366] hover:bg-[#1DAA51] text-white font-bold text-base px-5 py-6">
+                            <Link href={`mailto:${profileData.email}`}>
+                                <Mail className="mr-2 h-5 w-5" /> Email
+                            </Link>
+                        </Button>
+                    )}
+                    {profileData.github && (
+                        <Button asChild className="bg-[#333] hover:bg-[#111] text-white font-bold text-base px-5 py-6">
+                            <Link href={profileData.github} target="_blank" rel="noopener noreferrer">
+                                <Github className="mr-2 h-5 w-5" /> GitHub
+                            </Link>
+                        </Button>
+                    )}
+                    {profileData.linkedin && (
+                        <Button asChild className="bg-[#0A66C2] hover:bg-[#0854a0] text-white font-bold text-base px-5 py-6">
+                            <Link href={profileData.linkedin} target="_blank" rel="noopener noreferrer">
+                                <Linkedin className="mr-2 h-5 w-5" /> LinkedIn
+                            </Link>
+                        </Button>
+                    )}
+                    {profileData.instagram && (
+                        <Button asChild className="bg-[#E4405F] hover:bg-[#C13584] text-white font-bold text-base px-5 py-6">
+                            <Link href={profileData.instagram} target="_blank" rel="noopener noreferrer">
+                                <Instagram className="mr-2 h-5 w-5" /> Instagram
+                            </Link>
+                        </Button>
+                    )}
                 </div>
             </section>
 

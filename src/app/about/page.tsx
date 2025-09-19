@@ -6,6 +6,7 @@ import { ExperienceTabContent } from "~/components/pages/about/ExperienceTabCont
 import { IntroTabContent } from "~/components/pages/about/IntroTabContent"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
 import { Typography } from "~/components/ui/typography"
+import { getCertifications, getEducations, getExperiences, getProfileData } from "~/lib/data";
 
 export const metadata: Metadata = {
     title: 'About Me | M Iqbal Ferdiansyah',
@@ -16,30 +17,37 @@ export const metadata: Metadata = {
     },
 };
 
-const tabItems = [
-    {
-        value: "intro",
-        label: "Intro",
-        content: <IntroTabContent />,
-    },
-    {
-        value: "experience",
-        label: "Experience",
-        content: <ExperienceTabContent />,
-    },
-    {
-        value: "education",
-        label: "Education",
-        content: <EducationTabContent />,
-    },
-    {
-        value: "certification",
-        label: "Certification",
-        content: <CertificationTabContent />,
-    },
-]
 
-const About = () => {
+const About = async () => {
+    const [profileData, experiences, educations, certifications] = await Promise.all([
+        getProfileData(),
+        getExperiences(),
+        getEducations(),
+        getCertifications(),
+    ]);
+
+    const tabItems = [
+        {
+            value: "intro",
+            label: "Intro",
+            content: <IntroTabContent profileData={profileData} />,
+        },
+        {
+            value: "experience",
+            label: "Experience",
+            content: <ExperienceTabContent experienceData={experiences} />,
+        },
+        {
+            value: "education",
+            label: "Education",
+            content: <EducationTabContent educationData={educations} />,
+        },
+        {
+            value: "certification",
+            label: "Certification",
+            content: <CertificationTabContent certificationData={certifications} profileData={profileData} />,
+        },
+    ];
     return (
         <>
             <section className="mb-12">

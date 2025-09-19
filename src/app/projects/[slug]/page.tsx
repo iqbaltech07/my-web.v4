@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { projectsData } from "~/lib/data";
+import { getAllProjects, getProjectBySlug } from "~/lib/data"; // Updated import
 import ProjectDetailPageContent from "~/components/pages/projects/ProjectDetailPageContent";
 import type { Metadata } from "next";
 
@@ -8,7 +8,7 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const project = projectsData.find((p) => p.slug === params.slug);
+    const project = await getProjectBySlug(params.slug);
 
     if (!project) {
         return {
@@ -34,9 +34,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
 }
 
-export default function ProjectDetailPage({ params }: Props) {
+export default async function ProjectDetailPage({ params }: Props) {
     const { slug } = params;
-    const project = projectsData.find((p) => p.slug === slug);
+    const project = await getProjectBySlug(slug);
 
     if (!project) {
         notFound();
@@ -46,7 +46,8 @@ export default function ProjectDetailPage({ params }: Props) {
 }
 
 export async function generateStaticParams() {
-    return projectsData.map((project) => ({
+    const projects = await getAllProjects();
+    return projects.map((project) => ({
         slug: project.slug,
     }));
 }

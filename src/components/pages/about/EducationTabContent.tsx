@@ -1,13 +1,17 @@
 import Image from "next/image";
-import { educationData } from "~/lib/data";
 import { Card, CardHeader, CardTitle } from "~/components/ui/card";
 import { CalendarDays, MapPin } from "lucide-react";
+import { Education } from "~/generated/prisma";
 
-export function EducationTabContent() {
+interface EducationTabContentProps {
+    educationData: Education[];
+}
+
+export function EducationTabContent({ educationData }: EducationTabContentProps) {
     return (
         <div className="space-y-6 max-w-3xl mx-auto mt-3">
-            {educationData.map((edu, index) => (
-                <Card key={index} className="transition-all dark:bg-input/30 hover:border-zinc-600 dark:hover:border-zinc-600 duration-300 ease-in-out">
+            {educationData.map((edu) => (
+                <Card key={edu.id} className="transition-all dark:bg-input/30 hover:border-zinc-600 dark:hover:border-zinc-600 duration-300 ease-in-out">
                     <CardHeader className="flex flex-col sm:flex-row items-start gap-4">
                         <div className="flex h-12 w-12 items-center justify-center rounded-md border bg-muted flex-shrink-0">
                             <Image

@@ -3,26 +3,29 @@
 import React, { useState, useMemo } from 'react';
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Search, Sparkles } from "lucide-react";
+import { Search, Sparkles } from "lucide-react";
 import { Card, CardDescription, CardHeader, CardTitle } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "~/components/ui/pagination";
 import { Badge } from '~/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip';
-import { projectsData } from '~/lib/data';
 import { TechIcon } from '~/components/TechIcons';
+import { Project, Technology } from '~/generated/prisma';
 
-type Project = typeof projectsData[0];
+type ProjectWithTechnologies = Project & {
+    technologies: Technology[];
+};
+
 const PROJECTS_PER_PAGE = 4;
 
-export function ProjectsClientPage({ projects }: { projects: Project[] }) {
+export function ProjectsClientPage({ projects }: { projects: ProjectWithTechnologies[] }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
 
     const filteredProjects = useMemo(() => {
         return projects.filter(project =>
             project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            project.techStack.some(tech => tech.toLowerCase().includes(searchTerm.toLowerCase()))
+            project.technologies.some(tech => tech.name.toLowerCase().includes(searchTerm.toLowerCase()))
         );
     }, [projects, searchTerm]);
 
@@ -76,15 +79,15 @@ export function ProjectsClientPage({ projects }: { projects: Project[] }) {
                                     </Badge>
                                 )}
                                 <div className="absolute bottom-4 left-4 flex items-center gap-3">
-                                    {project.techStack.slice(0, 5).map(tech => (
-                                        <Tooltip key={tech}>
+                                    {project.technologies.slice(0, 5).map(tech => (
+                                        <Tooltip key={tech.id}>
                                             <TooltipTrigger>
                                                 <div className="h-8 w-8 flex items-center justify-center rounded-full bg-background/70 p-1.5 backdrop-blur-sm">
-                                                    <TechIcon name={tech} className="h-full w-full text-foreground" />
+                                                    <TechIcon name={tech.name} className="h-full w-full text-foreground" />
                                                 </div>
                                             </TooltipTrigger>
                                             <TooltipContent>
-                                                <p>{tech}</p>
+                                                <p>{tech.name}</p>
                                             </TooltipContent>
                                         </Tooltip>
                                     ))}

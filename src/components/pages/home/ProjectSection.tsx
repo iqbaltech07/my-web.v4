@@ -2,11 +2,15 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { ArrowRight, Badge } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { projectsData } from "~/lib/data";
 import { Button } from "~/components/ui/button";
 import { Typography } from "~/components/ui/typography";
+import { Project, Technology } from "~/generated/prisma";
 
-export function ProjectsSection() {
+interface ProjectSectionProps {
+    projectsData: (Project & { technologies: Technology[] })[];
+}
+
+export function ProjectsSection({ projectsData }: ProjectSectionProps) {
     return (
         <section>
             <div className="flex items-center justify-between mb-8">

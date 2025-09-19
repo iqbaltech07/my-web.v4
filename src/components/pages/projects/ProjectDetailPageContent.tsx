@@ -4,12 +4,14 @@ import { Typography } from "~/components/ui/typography";
 import { Button } from "~/components/ui/button";
 import { Github, Globe, CheckCircle2, ArrowLeft } from "lucide-react";
 import { Badge } from "~/components/ui/badge";
-import { projectsData } from "~/lib/data";
+import { Project, Technology } from "~/generated/prisma";
 
-type Project = typeof projectsData[0];
+type ProjectWithTechnologies = Project & {
+    technologies: Technology[];
+};
 
 interface ProjectDetailPageContentProps {
-    project: Project;
+    project: ProjectWithTechnologies;
 }
 
 export default function ProjectDetailPageContent({ project }: ProjectDetailPageContentProps) {
@@ -64,23 +66,27 @@ export default function ProjectDetailPageContent({ project }: ProjectDetailPageC
                     <div>
                         <Typography variant="h3" className="text-xl font-bold border-b pb-2 mb-4">Tech Stack</Typography>
                         <div className="flex flex-wrap gap-2">
-                            {project.techStack.map((tech) => (
-                                <Badge key={tech} variant="secondary">{tech}</Badge>
+                            {project.technologies.map((tech) => (
+                                <Badge key={tech.id} variant="secondary">{tech.name}</Badge>
                             ))}
                         </div>
                     </div>
 
                     <div className="flex flex-col gap-3">
-                        <Button asChild variant="outline">
-                            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                                <Globe className="mr-2 h-4 w-4" /> Live Demo
-                            </a>
-                        </Button>
-                        <Button asChild>
-                            <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                                <Github className="mr-2 h-4 w-4" /> Source Code
-                            </a>
-                        </Button>
+                        {project.liveUrl && (
+                            <Button asChild variant="outline">
+                                <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                                    <Globe className="mr-2 h-4 w-4" /> Live Demo
+                                </a>
+                            </Button>
+                        )}
+                        {project.githubUrl && (
+                            <Button asChild>
+                                <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                                    <Github className="mr-2 h-4 w-4" /> Source Code
+                                </a>
+                            </Button>
+                        )}
                     </div>
                 </aside>
             </div>

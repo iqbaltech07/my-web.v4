@@ -1,8 +1,11 @@
 import { Typography } from "~/components/ui/typography";
-import { skillsData } from "~/lib/data";
 import { TechIcon } from '~/components/TechIcons';
+import { Technology } from "~/generated/prisma";
+interface ToolsSectionProps {
+    skillsData: Technology[];
+}
 
-export function ToolsSection() {
+export function ToolsSection({ skillsData }: ToolsSectionProps) {
     return (
         <section className="mb-24">
             <Typography variant="h2" className="text-2xl border-none sm:text-3xl font-bold tracking-tight text-left mb-8">

@@ -5,14 +5,20 @@ import { Github, Linkedin, Mail, Home, User, Briefcase, MessageSquare } from "lu
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { profileData } from "~/lib/data";
+import { getProfileData } from "~/lib/data"; // Import fungsi fetch data
 import { Button } from "./ui/button";
 import { ThemeToggle } from "./ThemeToggle";
 import { VerifyIcon } from "../../public/images/icons/verifyIcon";
 import { DrawerClose } from "./ui/drawer";
 import React from "react";
+import { Profile } from "~/generated/prisma";
 
-export function SidebarContent({ isInsideDrawer = false }: { isInsideDrawer?: boolean }) {
+interface SidebarContentProps {
+    isInsideDrawer?: boolean;
+    profileData: Partial<Profile>;
+}
+
+export function SidebarContent({ isInsideDrawer = false, profileData }: SidebarContentProps) {
     const pathname = usePathname();
 
     const navLinks = [
@@ -20,7 +26,6 @@ export function SidebarContent({ isInsideDrawer = false }: { isInsideDrawer?: bo
         { href: "/about", label: "About", icon: User },
         { href: "/projects", label: "Projects", icon: Briefcase },
         { href: "/contact", label: "Contact", icon: Mail },
-        // guesbook
         { href: "/guestbook", label: "Guestbook", icon: MessageSquare },
     ];
 
@@ -34,10 +39,10 @@ export function SidebarContent({ isInsideDrawer = false }: { isInsideDrawer?: bo
                     <Avatar className="h-10 w-10 sm:h-16 sm:w-16">
                         <AvatarImage
                             src={profileData.avatarUrl}
-                            alt={profileData.name}
+                            alt={profileData.name || "Avatar"}
                         />
                         <AvatarFallback>
-                            {profileData.name.charAt(0)}
+                            {profileData.name ? profileData.name.charAt(0) : "U"}
                         </AvatarFallback>
                     </Avatar>
                     <div className="flex flex-col">
@@ -80,24 +85,30 @@ export function SidebarContent({ isInsideDrawer = false }: { isInsideDrawer?: bo
 
             <div className="mt-auto flex justify-center gap-4">
                 <ThemeToggle />
-                <Button variant="outline" size="icon" asChild>
-                    <a href={profileData.contact.github} target="_blank" rel="noopener noreferrer">
-                        <Github className="h-4 w-4" />
-                    </a>
-                </Button>
-                <Button variant="outline" size="icon" asChild>
-                    <a href={profileData.contact.linkedin} target="_blank" rel="noopener noreferrer">
-                        <Linkedin className="h-4 w-4" />
-                    </a>
-                </Button>
-                <Button variant="outline" size="icon" asChild>
-                    <a href={`mailto:${profileData.contact.email}`}>
-                        <Mail className="h-4 w-4" />
-                    </a>
-                </Button>
+                {profileData.github && (
+                    <Button variant="outline" size="icon" asChild>
+                        <a href={profileData.github} target="_blank" rel="noopener noreferrer">
+                            <Github className="h-4 w-4" />
+                        </a>
+                    </Button>
+                )}
+                {profileData.linkedin && (
+                    <Button variant="outline" size="icon" asChild>
+                        <a href={profileData.linkedin} target="_blank" rel="noopener noreferrer">
+                            <Linkedin className="h-4 w-4" />
+                        </a>
+                    </Button>
+                )}
+                {profileData.email && (
+                    <Button variant="outline" size="icon" asChild>
+                        <a href={`mailto:${profileData.email}`}>
+                            <Mail className="h-4 w-4" />
+                        </a>
+                    </Button>
+                )}
             </div>
 
-            <p className="text-[12px] text-zinc-400 text-center mt-5">&copy; {new Date().getFullYear()} M Iqbal Ferdiansyah • Privacy</p>
+            <p className="text-[12px] text-zinc-400 text-center mt-5">&copy; {new Date().getFullYear()} {profileData.name} • Privacy</p>
         </>
     );
 }

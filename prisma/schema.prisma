@@ -1,0 +1,96 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Profile {
+  id          String  @id @default(cuid())
+  name        String
+  asal        String
+  position    String
+  username    String
+  tagline     String  @db.Text
+  bio         String  @db.Text
+  avatarUrl   String
+  description String  @db.Text
+  email       String
+  github      String
+  linkedin    String
+  instagram   String
+  cvLatestUrl String?
+  cvOldUrl    String?
+}
+
+model Technology {
+  id       String    @id @default(cuid())
+  name     String    @unique
+  category String
+  isActive Boolean   @default(true)
+  projects Project[]
+}
+
+model Project {
+  id              String       @id @default(cuid())
+  slug            String       @unique
+  title           String
+  description     String       @db.Text
+  longDescription String       @db.Text
+  features        String[]
+  technologies    Technology[]
+  imageUrl        String
+  liveUrl         String
+  githubUrl       String
+  featured        Boolean      @default(false)
+}
+
+model Experience {
+  id          String   @id @default(cuid())
+  position    String
+  company     String
+  logoUrl     String
+  startDate   String
+  endDate     String
+  type        String
+  location    String
+  description String[]
+}
+
+model Education {
+  id          String @id @default(cuid())
+  institution String
+  degree      String
+  logoUrl     String
+  startDate   String
+  endDate     String
+  location    String
+}
+
+model Certification {
+  id                  String @id @default(cuid())
+  name                String
+  issuingOrganization String
+  issueDate           String
+  credentialUrl       String
+}
+
+model User {
+  id       String @id @default(cuid())
+  email    String @unique
+  password String
+}
+
+model Log {
+  id        String   @id @default(cuid())
+  action    String
+  model     String
+  recordId  String
+  message   String
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}

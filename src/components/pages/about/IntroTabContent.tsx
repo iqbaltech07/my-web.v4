@@ -1,9 +1,9 @@
 import { Button } from "~/components/ui/button";
-import { profileData } from "~/lib/data";
 import { FileDown, FileText, Info } from "lucide-react";
 import Link from "next/link";
+import { Profile } from "~/generated/prisma";
 
-export function IntroTabContent() {
+export function IntroTabContent({ profileData }: { profileData: Partial<Profile> }) {
     return (
         <div className="space-y-6 mt-6">
             <div className="space-y-8">
@@ -19,16 +19,20 @@ export function IntroTabContent() {
                             </div>
                         </div>
                         <div className="flex w-full gap-3 sm:w-auto mb-2 sm:mb-0 ">
-                            <Link href={profileData.cv.old} download >
-                                <Button variant="outline" className="w-[110px] cursor-pointer" >
-                                    <FileDown className="mr-2 h-4 w-4" /> PDF
-                                </Button>
-                            </Link>
-                            <Link href={profileData.cv.latest} download >
-                                <Button variant="outline" className="w-[110px] cursor-pointer">
-                                    <FileText className="mr-2 h-4 w-4" /> Latest
-                                </Button>
-                            </Link>
+                            {profileData.cvOldUrl && (
+                                <Link href={profileData.cvOldUrl} download target="_blank">
+                                    <Button variant="outline" className="w-[110px] cursor-pointer" >
+                                        <FileDown className="mr-2 h-4 w-4" /> PDF
+                                    </Button>
+                                </Link>
+                            )}
+                            {profileData.cvLatestUrl && (
+                                <Link href={profileData.cvLatestUrl} download target="_blank">
+                                    <Button variant="outline" className="w-[110px] cursor-pointer">
+                                        <FileText className="mr-2 h-4 w-4" /> Latest
+                                    </Button>
+                                </Link>
+                            )}
                         </div>
                     </div>
                     <div className="flex items-center">
@@ -42,7 +46,7 @@ export function IntroTabContent() {
 
             <div className="bg-background border rounded-lg px-6 py-4 shadow-sm dark:bg-input/30">
                 <h5 className="text-xl font-semibold mb-2">Who I Am?</h5>
-                <p className="text-muted-foreground text-pretty whitespace-pre-line" dangerouslySetInnerHTML={{ __html: profileData.description }} />
+                <p className="text-muted-foreground text-pretty whitespace-pre-line" dangerouslySetInnerHTML={{ __html: profileData.description || "" }} />
             </div>
             <div className="bg-background border-2 rounded-lg px-6 py-4 shadow-sm flex sm:items-center justify-between sm:flex-row flex-col gap-4">
                 <div>

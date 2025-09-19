@@ -9,10 +9,19 @@ import {
     DrawerClose,
 } from "./ui/drawer";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { profileData } from "~/lib/data";
+import { getProfileData } from "~/lib/data";
 import { VerifyIcon } from "../../public/images/icons/verifyIcon";
 
-export function MobileHeader() {
+interface MobileHeaderData {
+    profileData: Partial<Profile>;
+}
+
+export async function MobileHeader() {
+    const profileData = await getProfileData();
+
+    console.log(profileData);
+
+
     return (
         <header className="sticky top-0 z-50 w-screen border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 lg:hidden">
             <div className="container h-16 flex items-center justify-between w-full px-5">
@@ -32,11 +41,11 @@ export function MobileHeader() {
                                     <div className="flex flex-row items-center sm:flex-col gap-3">
                                         <Avatar className="h-10 w-10 sm:h-16 sm:w-16">
                                             <AvatarImage
-                                                src={profileData.avatarUrl}
-                                                alt={profileData.name}
+                                                src={profileData.avatarUrl || ""}
+                                                alt={profileData.name || "Avatar"}
                                             />
                                             <AvatarFallback>
-                                                {profileData.name.charAt(0)}
+                                                {profileData.name ? profileData.name.charAt(0) : "U"}
                                             </AvatarFallback>
                                         </Avatar>
                                         <div className="flex flex-col">
@@ -46,7 +55,7 @@ export function MobileHeader() {
                                                     <VerifyIcon width={15} />
                                                 </div>
                                             </h1>
-                                            <p className="text-sm font-normal text-zinc-400">@{profileData.username}</p>
+                                            <p className="text-sm font-normal text-zinc-400">@{profileData.name}</p>
                                         </div>
                                     </div>
                                     <DrawerClose asChild>
@@ -58,7 +67,7 @@ export function MobileHeader() {
                             </div>
                         </DrawerTitle>
 
-                        <SidebarContent isInsideDrawer={true} />
+                        <SidebarContent isInsideDrawer={true} profileData={profileData} />
                     </DrawerContent>
                 </Drawer>
             </div>
