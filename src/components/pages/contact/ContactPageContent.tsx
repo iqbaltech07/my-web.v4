@@ -1,20 +1,82 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { Typography } from "~/components/ui/typography";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Textarea } from "~/components/ui/textarea";
 import { Label } from "~/components/ui/label";
-import { Mail, Linkedin, Github, Link as LinkIcon, MessageSquare, Clock, Instagram } from "lucide-react";
+import { Mail, Linkedin, Github, Link as LinkIcon, MessageSquare, Clock, Instagram, Loader2 } from "lucide-react";
 import Link from 'next/link';
 import { Profile } from '~/generated/prisma';
+import { cn } from '~/lib/utils';
+// Ganti path ini jika lokasi file Anda berbeda
+import { sendContactEmail } from '~/lib/email';
 
 interface ContactPageContentProps {
     profileData: Partial<Profile>;
 }
 
 export default function ContactPageContent({ profileData }: ContactPageContentProps) {
+    const formRef = useRef<HTMLFormElement>(null);
+    const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+    const [statusMessage, setStatusMessage] = useState('');
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        if (!formRef.current) return;
+
+        const formData = new FormData(formRef.current);
+        const name = formData.get('name') as string;
+        const email = formData.get('email') as string;
+        const message = formData.get('message') as string;
+
+        if (!name || !email || !message) {
+            setStatus('error');
+            setStatusMessage('Please fill in all required fields.');
+            return;
+        }
+
+        setStatus('loading');
+        setStatusMessage('');
+
+        const emailData = {
+            title: `New message from ${name}`,
+            name: name,
+            email: email,
+            message: message,
+            time: new Date().toLocaleDateString("id-ID", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+                timeZone: "Asia/Jakarta",
+            }),
+        };
+
+        sendContactEmail(emailData)
+            .then(() => {
+                setStatus('success');
+                setStatusMessage('Your message has been sent successfully!');
+                formRef.current?.reset();
+
+                setTimeout(() => {
+                    setStatus('idle');
+                    setStatusMessage('');
+                }, 5000);
+            })
+            .catch((error) => {
+                setStatus('error');
+                setStatusMessage('Failed to send the message. Please try again.');
+                console.error('FAILED TO SEND EMAIL...', error);
+
+                setTimeout(() => {
+                    setStatus('idle');
+                    setStatusMessage('');
+                }, 5000);
+            });
+    };
+
     return (
         <div className="max-w-3xl mx-auto">
             <section className="mb-12 text-left">
@@ -74,24 +136,37 @@ export default function ContactPageContent({ profileData }: ContactPageContentPr
                 <Typography variant="p" className="text-sm text-muted-foreground mb-6">
                     Have a thought, a question, or just want to say hello? Leave a note—I read them all.
                 </Typography>
-                <form className="space-y-6">
+                <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div className="space-y-2">
                             <Label htmlFor="name" className="text-muted-foreground">Name*</Label>
-                            <Input id="name" placeholder="" className="py-6" />
+                            <Input id="name" name="name" placeholder="Your Name" className="py-6" required />
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="email" className="text-muted-foreground">Email*</Label>
-                            <Input id="email" type="email" placeholder="" className="py-6" />
+                            <Input id="email" name="email" type="email" placeholder="your.email@example.com" className="py-6" required />
                         </div>
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="message" className="text-muted-foreground">Message*</Label>
-                        <Textarea id="message" placeholder="" rows={6} />
+                        <Textarea id="message" name="message" placeholder="Let's talk about..." rows={6} required />
                     </div>
-                    <Button type="submit" className="w-full text-base font-bold py-7">
-                        Begin the conversation
+                    <Button type="submit" className="w-full text-base font-bold py-7" disabled={status === 'loading'}>
+                        {status === 'loading' ? (
+                            <>
+                                <Loader2 className="mr-2 h-5 w-5 animate-spin" /> Sending...
+                            </>
+                        ) : 'Begin the conversation'}
                     </Button>
+                    {statusMessage && (
+                        <p className={cn(
+                            "text-sm text-center mt-4",
+                            status === 'success' && "text-green-600",
+                            status === 'error' && "text-destructive"
+                        )}>
+                            {statusMessage}
+                        </p>
+                    )}
                 </form>
             </section>
 
