@@ -6,7 +6,7 @@ export async function Sidebar() {
   const profileData: Partial<Profile> = await getProfileData();
 
   return (
-    <aside className="fixed inset-y-0 h-full w-75 flex-col border-r bg-background p-8 hidden lg:flex">
+    <aside className="fixed inset-y-0 h-full w-75 flex-col border-r bg-background p-8 hidden sm:flex">
       <SidebarContent profileData={profileData} />
     </aside>
   );

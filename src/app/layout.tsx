@@ -39,7 +39,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange>
           <div className="flex min-h-screen max-w-7xl mx-auto">
-            <div className="hidden lg:block">
+            <div className="hidden sm:block">
               <Sidebar />
             </div>
 

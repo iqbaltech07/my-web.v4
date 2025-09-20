@@ -9,7 +9,7 @@ export function ToolsSection({ skillsData }: ToolsSectionProps) {
     return (
         <section className="mb-24">
             <Typography variant="h2" className="text-2xl border-none sm:text-3xl font-bold tracking-tight text-left mb-8">
-                Tools & Technology
+                Technologies I Use
             </Typography>
             <div className="flex flex-wrap gap-4 sm:gap-6 justify-start">
                 {skillsData.map((skill) => (

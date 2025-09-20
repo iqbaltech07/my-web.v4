@@ -15,7 +15,13 @@ import {
     SiFigma,
     SiExpress,
     SiSequelize,
-    SiBootstrap
+    SiBootstrap,
+    SiHtml5,
+    SiCss3,
+    SiVercel,
+    SiNetlify,
+    SiCloudflare,
+    SiOpenai
 } from "react-icons/si";
 import { BiLogoPostgresql } from "react-icons/bi";
 import { TbBrandFramerMotion } from "react-icons/tb";
@@ -39,6 +45,12 @@ const iconMap: { [key: string]: React.ElementType } = {
     "Express.js": SiExpress,
     "Sequelize": SiSequelize,
     "Bootstrap": SiBootstrap,
+    "HTML": SiHtml5,
+    "CSS": SiCss3,
+    "Vercel": SiVercel,
+    "Netlify": SiNetlify,
+    "Cloudflare": SiCloudflare,
+    "OpenAI": SiOpenai,
 };
 
 interface TechIconProps {

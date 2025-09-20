@@ -53,9 +53,9 @@ export default function ProjectDetailPageContent({ project }: ProjectDetailPageC
                         <Typography variant="h3" className="text-xl font-semibold mb-4">Key Features</Typography>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             {project.features.map((feature, index) => (
-                                <div key={index} className="flex items-start gap-3 rounded-lg border border-border/50 bg-muted/30 p-4">
-                                    <CheckCircle2 className="h-5 w-5 mt-0.5 text-primary flex-shrink-0" />
-                                    <span className="text-muted-foreground text-sm">{feature}</span>
+                                <div key={index} className="flex items-center gap-3 rounded-lg border border-border/50 bg-muted/30 p-4">
+                                    <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0" />
+                                    <span className="text-muted-foreground text-sm ">{feature}</span>
                                 </div>
                             ))}
                         </div>
@@ -75,15 +75,15 @@ export default function ProjectDetailPageContent({ project }: ProjectDetailPageC
                     <div className="flex flex-col gap-3">
                         {project.liveUrl && (
                             <Button asChild variant="outline">
-                                <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                                    <Globe className="mr-2 h-4 w-4" /> Live Demo
+                                <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="flex items-center">
+                                    <Globe className=" h-4 w-4" /> Live Demo
                                 </a>
                             </Button>
                         )}
                         {project.githubUrl && (
                             <Button asChild>
-                                <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                                    <Github className="mr-2 h-4 w-4" /> Source Code
+                                <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center">
+                                    <Github className=" h-4 w-4" /> Source Code
                                 </a>
                             </Button>
                         )}

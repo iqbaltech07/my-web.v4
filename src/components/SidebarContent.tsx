@@ -108,7 +108,9 @@ export function SidebarContent({ isInsideDrawer = false, profileData }: SidebarC
                 )}
             </div>
 
-            <p className="text-[12px] text-zinc-400 text-center mt-5">&copy; {new Date().getFullYear()} {profileData.name?.split(" ").slice(0, 2).join(" ")} • Privacy</p>
+            <p className="text-[12px] text-zinc-400 text-center mt-5">
+                &copy; {new Date().getFullYear()} {profileData.name?.split(" ").slice(0, 2).join(" ")} • <Link href="/privacy-policy" className="hover:underline">Privacy</Link>
+            </p>
         </>
     );
 }

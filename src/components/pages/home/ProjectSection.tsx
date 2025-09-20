@@ -29,11 +29,11 @@ export function ProjectsSection({ projectsData }: ProjectSectionProps) {
                                 className="object-cover"
                             />
                         </div>
-                        <div className="flex flex-col justify-between p-6 md:w-2/3">
+                        <div className="flex flex-col justify-between pt-3 px-6 pb-6 sm:p-6 md:w-2/3">
                             <div>
                                 <CardHeader className="p-0 mb-4">
-                                    <CardTitle>{project.title}</CardTitle>
-                                    <CardDescription>{project.description}</CardDescription>
+                                    <CardTitle className="text-xl font-semibold">{project.title}</CardTitle>
+                                    <CardDescription className="text-sm text-muted-foreground line-clamp-2">{project.description}</CardDescription>
                                 </CardHeader>
                                 <CardContent className="p-0 mb-4">
                                     <div className="flex flex-wrap gap-2">

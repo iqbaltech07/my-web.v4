@@ -15,7 +15,7 @@ export function CertificationTabContent({ certificationData, profileData }: Cert
     });
 
     return (
-        <div className="space-y-6 mt-6">
+        <div className="space-y-6 mt-1">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border bg-[#0e86d1]/20 px-4 py-3 rounded-md">
                 <div className="flex items-center gap-4">
                     <FaLinkedin className="rounded-md text-4xl text-[#0e86d1]" />

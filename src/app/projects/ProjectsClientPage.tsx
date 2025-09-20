@@ -59,12 +59,16 @@ export function ProjectsClientPage({ projects }: { projects: ProjectWithTechnolo
                                     fill
                                     className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
                                 />
+
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/55 lg:from-black/80 to-transparent"></div>
+
                                 {project.featured && (
                                     <Badge className="absolute top-3 right-3" variant="secondary">
                                         <Sparkles className="mr-1.5 h-3 w-3 text-primary" />
                                         Featured
                                     </Badge>
                                 )}
+
                                 <div className="absolute bottom-4 left-4 flex items-center gap-3">
                                     {project.technologies.slice(0, 5).map(tech => (
                                         <Tooltip key={tech.id}>
@@ -81,9 +85,9 @@ export function ProjectsClientPage({ projects }: { projects: ProjectWithTechnolo
                                 </div>
                             </div>
 
-                            <CardHeader className="flex-grow p-6">
-                                <CardTitle className="mb-2 text-lg font-semibold">{project.title}</CardTitle>
-                                <CardDescription className="text-sm text-muted-foreground line-clamp-2">
+                            <CardHeader className="flex-grow py-3 px-6">
+                                <CardTitle className="mb-2 text-xl font-semibold">{project.title}</CardTitle>
+                                <CardDescription className="text-sm text-muted-foreground line-clamp-3 md:line-clamp-2">
                                     {project.description}
                                 </CardDescription>
                             </CardHeader>

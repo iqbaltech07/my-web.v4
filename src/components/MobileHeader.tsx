@@ -17,7 +17,7 @@ export async function MobileHeader() {
     const profileData: Partial<Profile> = await getProfileData();
 
     return (
-        <header className="sticky top-0 z-50 w-screen border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 lg:hidden">
+        <header className="sticky top-0 z-50 w-screen border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sm:hidden">
             <div className="container h-16 flex items-center justify-between w-full px-5">
                 <Link href="/" className="font-bold text-xl">
                     {profileData.name?.split(" ").slice(0, 2).join(" ")}

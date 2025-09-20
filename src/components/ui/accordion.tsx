@@ -41,10 +41,10 @@ function AccordionTrigger({
         )}
         {...props}
       >
-        <span className="group-data-[state=closed]:inline group-data-[state=open]:hidden">
+        <span className="group-data-[state=closed]:inline group-data-[state=open]:hidden text-nowrap">
           Show More
         </span>
-        <span className="group-data-[state=open]:inline group-data-[state=closed]:hidden">
+        <span className="group-data-[state=open]:inline group-data-[state=closed]:hidden text-nowrap">
           Show Less
         </span>
 
