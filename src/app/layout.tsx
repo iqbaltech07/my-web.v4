@@ -28,9 +28,7 @@ export default function RootLayout({
                     enableSystem
                     disableTransitionOnChange
                 >
-                    <main className="h-dvh w-screen flex items-center justify-center">
-                        {children}
-                    </main>
+                    {children}
                 </ThemeProvider>
             </body>
         </html>
